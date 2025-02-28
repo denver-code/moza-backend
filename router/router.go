@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/denver-code/moza-backend/handler"
+	"github.com/denver-code/moza-backend/handler/banking"
 	"github.com/denver-code/moza-backend/middleware"
 
 	"github.com/gofiber/fiber/v2"
@@ -28,19 +29,19 @@ func SetupRoutes(app *fiber.App) {
 	user.Get("/profile", middleware.Protected(), handler.GetProfile)
 
 	// Banking
-	banking := api.Group("/banking")
-	banking.Use(middleware.Protected()) // All banking routes require authentication
+	banking_group := api.Group("/banking")
+	banking_group.Use(middleware.Protected()) // All banking routes require authentication
 
 	// Bank Accounts
-	banking.Post("/accounts", handler.CreateBankAccount)
-	banking.Get("/accounts", handler.GetUserAccounts)
-	banking.Get("/accounts/:id/transactions", handler.GetAccountTransactions)
+	banking_group.Post("/accounts", banking.CreateBankAccount)
+	banking_group.Get("/accounts", banking.GetUserAccounts)
+	banking_group.Get("/accounts/:id/transactions", banking.GetAccountTransactions)
 
 	// Cards
-	banking.Post("/cards", handler.CreateCard)
-	banking.Get("/:id/cards", handler.GetCards)
+	banking_group.Post("/cards", banking.CreateCard)
+	banking_group.Get("/accounts/:id/cards", banking.GetCards)
 
 	// Transactions
-	banking.Post("/transfer", handler.Transfer)
+	banking_group.Post("/transfer", banking.Transfer)
 
 }
