@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/denver-code/moza-backend/config"
-	"github.com/denver-code/moza-backend/model"
+	"github.com/denver-code/moza-backend/database/model"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

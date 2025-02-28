@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/denver-code/moza-backend/database"
-	"github.com/denver-code/moza-backend/model"
+	"github.com/denver-code/moza-backend/database/model"
 	"github.com/denver-code/moza-backend/util"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"

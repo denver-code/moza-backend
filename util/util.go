@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/denver-code/moza-backend/database"
-	"github.com/denver-code/moza-backend/model"
+	"github.com/denver-code/moza-backend/database/model"
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 )

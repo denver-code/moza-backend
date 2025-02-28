@@ -9,7 +9,7 @@ import (
 
 	"github.com/denver-code/moza-backend/config"
 	"github.com/denver-code/moza-backend/database"
-	"github.com/denver-code/moza-backend/model"
+	"github.com/denver-code/moza-backend/database/model"
 	"github.com/denver-code/moza-backend/util"
 
 	"gorm.io/gorm"
