@@ -42,6 +42,7 @@ func SetupRoutes(app *fiber.App) {
 
 	// Cards
 	banking.Post("/cards", handler.CreateCard)
+	banking.Get("/:id/cards", handler.GetCards)
 
 	// Transactions
 	banking.Post("/transfer", handler.Transfer)

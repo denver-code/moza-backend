@@ -153,6 +153,48 @@ func CreateCard(c *fiber.Ctx) error {
 	})
 }
 
+// GetCards retrieves all cards for the user bank account
+func GetCards(c *fiber.Ctx) error {
+	accountID := c.Params("id")
+
+	// Get user ID from JWT token
+	user := c.Locals("user").(*jwt.Token)
+	claims := user.Claims.(jwt.MapClaims)
+	userID := uint(claims["user_id"].(float64))
+
+	// Verify bank account ownership
+	var account model.BankAccount
+	if err := database.DB.Where("id = ? AND user_id = ?", accountID, userID).First(&account).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"status":  "error",
+				"message": "Bank account not found or unauthorized",
+			})
+		}
+
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status":  "error",
+			"message": "Could not verify bank account",
+			"data":    err.Error(),
+		})
+	}
+
+	var cards []model.Card
+	if err := database.DB.Where("bank_account_id = ?", accountID).Find(&cards).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status":  "error",
+			"message": "Could not retrieve cards",
+			"data":    err.Error(),
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"status":  "success",
+		"message": "Cards retrieved successfully",
+		"data":    cards,
+	})
+}
+
 // Transfer handles money transfer between accounts
 func Transfer(c *fiber.Ctx) error {
 	type TransferInput struct {
