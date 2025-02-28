@@ -28,7 +28,6 @@ func ConnectDB() {
 
 	fmt.Println("Connection Opened to Database")
 	DB.AutoMigrate(
-		&model.Product{},
 		&model.User{},
 		&model.BankAccount{},
 		&model.Card{},

@@ -10,12 +10,12 @@ import (
 	"github.com/denver-code/moza-backend/config"
 	"github.com/denver-code/moza-backend/database"
 	"github.com/denver-code/moza-backend/model"
+	"github.com/denver-code/moza-backend/util"
 
 	"gorm.io/gorm"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
-	"golang.org/x/crypto/bcrypt"
 )
 
 // Registration request structure
@@ -146,7 +146,7 @@ func Register(c *fiber.Ctx) error {
 	}
 
 	// Hash password
-	hash, err := hashPassword(input.Password)
+	hash, err := util.HashPassword(input.Password)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
@@ -200,12 +200,6 @@ func Register(c *fiber.Ctx) error {
 			},
 		},
 	})
-}
-
-// CheckPasswordHash compare password with hash
-func CheckPasswordHash(password, hash string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	return err == nil
 }
 
 func getUserByEmail(e string) (*model.User, error) {
@@ -269,18 +263,18 @@ func Login(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "error", "message": "Internal Server Error", "data": err})
 	} else if userModel == nil {
-		CheckPasswordHash(pass, "")
+		util.CheckPasswordHash(pass, "")
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"status": "error", "message": "Invalid identity or password", "data": err})
 	} else {
 		userData = UserData{
 			ID:       userModel.ID,
 			Username: userModel.Username,
-			Email:    userModel.Email,
+			// Email:    userModel.Email,
 			Password: userModel.Password,
 		}
 	}
 
-	if !CheckPasswordHash(pass, userData.Password) {
+	if !util.CheckPasswordHash(pass, userData.Password) {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"status": "error", "message": "Invalid identity or password", "data": nil})
 	}
 

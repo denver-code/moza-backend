@@ -26,10 +26,6 @@ func SetupRoutes(app *fiber.App) {
 	// User
 	user := api.Group("/user")
 	user.Get("/profile", middleware.Protected(), handler.GetProfile)
-	user.Get("/:id", handler.GetUser)
-	// user.Post("/", handler.CreateUser)
-	// user.Patch("/:id", middleware.Protected(), handler.UpdateUser)
-	// user.Delete("/:id", middleware.Protected(), handler.DeleteUser)
 
 	// Banking
 	banking := api.Group("/banking")
@@ -47,10 +43,4 @@ func SetupRoutes(app *fiber.App) {
 	// Transactions
 	banking.Post("/transfer", handler.Transfer)
 
-	// Product
-	product := api.Group("/product")
-	product.Get("/", handler.GetAllProducts)
-	product.Get("/:id", handler.GetProduct)
-	product.Post("/", middleware.Protected(), handler.CreateProduct)
-	product.Delete("/:id", middleware.Protected(), handler.DeleteProduct)
 }

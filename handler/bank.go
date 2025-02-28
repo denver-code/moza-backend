@@ -2,12 +2,11 @@ package handler
 
 import (
 	"errors"
-	"fmt"
-	"math/rand"
 	"time"
 
 	"github.com/denver-code/moza-backend/database"
 	"github.com/denver-code/moza-backend/model"
+	"github.com/denver-code/moza-backend/util"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"gorm.io/gorm"
@@ -35,7 +34,7 @@ func CreateBankAccount(c *fiber.Ctx) error {
 	userID := uint(claims["user_id"].(float64))
 
 	// Generate unique account number
-	accountNumber := generateAccountNumber()
+	accountNumber := util.GenerateAccountNumber()
 
 	account := &model.BankAccount{
 		UserID:        userID,
@@ -123,8 +122,8 @@ func CreateCard(c *fiber.Ctx) error {
 	}
 
 	// Generate card details
-	cardNumber := generateCardNumber()
-	cvv := generateCVV()
+	cardNumber := util.GenerateCardNumber()
+	cvv := util.GenerateCVV()
 	expiryDate := time.Now().AddDate(4, 0, 0) // 4 years validity
 
 	card := &model.Card{
@@ -283,7 +282,7 @@ func Transfer(c *fiber.Ctx) error {
 		Description:   input.Description,
 		Type:          "TRANSFER",
 		Status:        "COMPLETED",
-		Reference:     generateTransactionReference(),
+		Reference:     util.GenerateTransactionReference(),
 	}
 
 	if err := tx.Create(&transaction).Error; err != nil {
@@ -343,21 +342,4 @@ func GetAccountTransactions(c *fiber.Ctx) error {
 		"message": "Transactions retrieved successfully",
 		"data":    transactions,
 	})
-}
-
-// Helper functions for generating numbers and references
-func generateAccountNumber() string {
-	return fmt.Sprintf("%d", rand.Intn(900000000)+100000000)
-}
-
-func generateCardNumber() string {
-	return fmt.Sprintf("%d", rand.Intn(9000000000000000)+1000000000000000)
-}
-
-func generateCVV() string {
-	return fmt.Sprintf("%d", rand.Intn(900)+100)
-}
-
-func generateTransactionReference() string {
-	return fmt.Sprintf("TXN%d", time.Now().UnixNano())
 }

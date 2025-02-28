@@ -13,6 +13,12 @@ To start, configure the environment variables in the `.env` file and docker-comp
 cp .env.example .env
 ```  
 
+## SSL Certificates (NGINX Optional)  
+You don't need to do this if you are running the application in development mode.  
+```bash
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./nginx/ssl/moza.key -out ./nginx/ssl/moza.crt
+```
+
 ## Installation (Docker)  
 We highly recommend using Docker for both development and production.    
 ```bash
