@@ -89,7 +89,7 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Invalid input",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -98,6 +98,7 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Invalid email format",
+			"data":    nil,
 		})
 	}
 
@@ -106,6 +107,7 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -114,6 +116,7 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -128,6 +131,7 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusConflict).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Email already registered",
+			"data":    nil,
 		})
 	}
 
@@ -142,6 +146,7 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusConflict).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Username already taken",
+			"data":    nil,
 		})
 	}
 
@@ -151,7 +156,7 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Couldn't hash password",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -167,7 +172,7 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Couldn't create user",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -183,7 +188,7 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Couldn't generate token",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 

@@ -22,7 +22,7 @@ func Transfer(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Invalid input",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -30,6 +30,7 @@ func Transfer(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Cannot transfer to the same account",
+			"data":    nil,
 		})
 	}
 
@@ -48,6 +49,7 @@ func Transfer(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Unauthorized or account not found",
+			"data":    nil,
 		})
 	}
 
@@ -57,6 +59,7 @@ func Transfer(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Insufficient balance",
+			"data":    nil,
 		})
 	}
 
@@ -67,6 +70,7 @@ func Transfer(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Destination account not found",
+			"data":    nil,
 		})
 	}
 
@@ -76,6 +80,7 @@ func Transfer(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Could not update source account",
+			"data":    nil,
 		})
 	}
 
@@ -84,6 +89,7 @@ func Transfer(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Could not update destination account",
+			"data":    nil,
 		})
 	}
 
@@ -104,6 +110,7 @@ func Transfer(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Could not create transaction record",
+			"data":    nil,
 		})
 	}
 
@@ -112,6 +119,7 @@ func Transfer(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Could not complete transfer",
+			"data":    nil,
 		})
 	}
 
@@ -137,6 +145,7 @@ func GetAccountTransactions(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Unauthorized or account not found",
+			"data":    nil,
 		})
 	}
 

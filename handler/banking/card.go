@@ -25,7 +25,7 @@ func CreateCard(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Invalid input",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -41,12 +41,13 @@ func CreateCard(c *fiber.Ctx) error {
 			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 				"status":  "error",
 				"message": "Bank account not found or unauthorized",
+				"data":    nil,
 			})
 		}
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Could not verify bank account",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -70,7 +71,7 @@ func CreateCard(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Could not create card",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -97,13 +98,14 @@ func GetCards(c *fiber.Ctx) error {
 			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 				"status":  "error",
 				"message": "Bank account not found or unauthorized",
+				"data":    nil,
 			})
 		}
 
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Could not verify bank account",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -112,7 +114,7 @@ func GetCards(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Could not retrieve cards",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 

@@ -22,7 +22,7 @@ func CreateBankAccount(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Invalid input",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -48,7 +48,7 @@ func CreateBankAccount(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Could not create bank account",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
@@ -70,7 +70,7 @@ func GetUserAccounts(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "error",
 			"message": "Could not retrieve accounts",
-			"data":    err.Error(),
+			"data":    nil,
 		})
 	}
 
