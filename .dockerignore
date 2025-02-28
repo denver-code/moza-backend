@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.docker
+
+# Golang
+vendor/
+tmp/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+*.tmp
+*.temp
+
+# Project specific
+README.md
+LICENSE
+*.md
+docs/ 
